@@ -25,7 +25,7 @@ class Build(build):
 
 setup(
     name="tree-sitter-metal",
-    version="0.1.0",
+    version="0.1.1",
     description="Metal Shading Language grammar for tree-sitter",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
@@ -60,6 +60,11 @@ setup(
         "Typing :: Typed",
     ],
     keywords="tree-sitter metal msl grammar parser shader apple",
+    # The package imports `tree_sitter` at module scope to build the Language, so
+    # it is a hard runtime requirement. Leaving it out let `pip install
+    # tree-sitter-metal` succeed and the very next `import tree_sitter_metal` fail
+    # with ModuleNotFoundError -- the wheel was installed, the dependency was not.
+    install_requires=["tree-sitter>=0.20.0"],
     packages=find_packages("bindings/python"),
     package_dir={"": "bindings/python"},
     package_data={
