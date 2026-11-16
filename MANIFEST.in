@@ -1,0 +1,14 @@
+# The generated parser and its headers are the source of the extension, so the
+# sdist has to carry all of them: setuptools includes only the .c files by
+# default, and without `parser.h`/`array.h` a `pip install` from the sdist fails
+# with "tree_sitter/parser.h: No such file or directory".
+recursive-include src *.c *.h
+recursive-include src/tree_sitter *.h
+recursive-include bindings/python/tree_sitter_metal *.c *.py *.pyi py.typed
+recursive-include queries *.scm
+include grammar.js
+include binding.gyp
+include package.json
+include Cargo.toml
+include LICENSE
+include README.md
